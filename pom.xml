@@ -100,6 +100,17 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>10.13.0</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/jwt?serverVersion=16&amp;charset=utf8</url>
+					<user>jwt</user>
+					<password>jwt</password>
+					<cleanDisabled>false</cleanDisabled>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

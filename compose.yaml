@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    environment:
+      POSTGRES_DB: jwt
+      POSTGRES_PASSWORD: jwt
+      POSTGRES_USER: jwt
+    ports:
+      - 5432:5432
