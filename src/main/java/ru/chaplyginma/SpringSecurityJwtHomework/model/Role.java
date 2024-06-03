@@ -16,6 +16,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @SequenceGenerator(name = "seq", sequenceName = "roles_id_seq", allocationSize = 1)
     Long id;
+    @Column(name = "name", unique = true, nullable = false)
     String name;
 
     public Role(String name) {
