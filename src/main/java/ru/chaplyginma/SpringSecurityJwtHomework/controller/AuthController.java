@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.chaplyginma.SpringSecurityJwtHomework.dto.CreateUserRequest;
+import ru.chaplyginma.SpringSecurityJwtHomework.dto.SignUpRequest;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.User;
 import ru.chaplyginma.SpringSecurityJwtHomework.service.UserService;
 
@@ -17,7 +17,7 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public User signup(@RequestBody CreateUserRequest createUserRequest) {
-        return userService.save(createUserRequest);
+    public User signup(@RequestBody SignUpRequest signUpRequest) {
+        return userService.save(signUpRequest);
     }
 }
