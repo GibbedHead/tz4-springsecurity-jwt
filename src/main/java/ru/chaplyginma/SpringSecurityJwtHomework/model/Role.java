@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
+@Table(name = "roles")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -13,7 +14,11 @@ import lombok.experimental.FieldDefaults;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "role_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "seq", sequenceName = "roles_id_seq", allocationSize = 1)
     Long id;
     String name;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

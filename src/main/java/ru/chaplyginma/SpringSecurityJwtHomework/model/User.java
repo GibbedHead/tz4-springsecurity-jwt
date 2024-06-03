@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @SequenceGenerator(name = "seq", sequenceName = "user_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "seq", sequenceName = "users_id_seq", allocationSize = 1)
     Long id;
     String userName;
     String password;
