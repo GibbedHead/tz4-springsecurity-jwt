@@ -6,15 +6,15 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.chaplyginma.SpringSecurityJwtHomework.model.RefreshToken;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.Role;
+import ru.chaplyginma.SpringSecurityJwtHomework.model.User;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.Duration;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +22,8 @@ import java.util.stream.Collectors;
 public class JwtService {
     private static final String ROLES_CLAIM = "roles";
     private static final String ID_CLAIM = "id";
+
+    private final RefreshTokenService refreshTokenService;
 
     @Value("${jwt.secret}")
     private String jwtSecret;
@@ -48,6 +50,19 @@ public class JwtService {
                 .claims(claims)
                 .signWith(getSigningKey())
                 .compact();
+    }
+
+    public RefreshToken getNewRefreshToken(User user) {
+        RefreshToken newRefreshToken = generateRefreshToken(user);
+        return refreshTokenService.save(newRefreshToken);
+    }
+
+    public RefreshToken generateRefreshToken(User user) {
+        return RefreshToken.builder()
+                .user(user)
+                .value(UUID.randomUUID().toString())
+                .expireAt(LocalDateTime.now().plus(refreshTokenExpiration))
+                .build();
     }
 
     private Key getSigningKey() {
