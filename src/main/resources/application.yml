@@ -1,13 +1,13 @@
 spring:
-    application:
-        name: SpringSecurityJwtHomework
-    datasource:
-        driverClassName: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/jwt?serverVersion=16&charset=utf8
-        username: jwt
-        password: jwt
+  application:
+    name: SpringSecurityJwtHomework
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/jwt?serverVersion=16&charset=utf8
+    username: jwt
+    password: jwt
 
 jwt:
-    secret: faadd635-84c8-4e67-a2ff-5824b4f85226
-    accessTokenTTL: 1m
-    refreshTokenTTL: 30m
+  secret: faadd63584c84e672ff5824b4f85226faadd63584c84e672ff5824b4f85226
+  accessTokenExpiration: 1m
+  refreshTokenExpiration: 30m
