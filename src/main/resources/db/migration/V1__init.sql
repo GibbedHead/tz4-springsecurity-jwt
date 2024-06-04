@@ -31,3 +31,7 @@ CREATE TABLE refresh_tokens
     expire_at TIMESTAMP    NOT NULL,
     CONSTRAINT fk_refresh_tokens_on_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
+
+INSERT INTO roles (name)
+VALUES ('ROLE_USER'),
+       ('ROLE_ADMIN');
