@@ -1,0 +1,935 @@
+{
+	"info": {
+		"_postman_id": "620314a8-f97b-4289-805c-88fae4ad872f",
+		"name": "SpringSecurityJwtHomework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33879345"
+	},
+	"item": [
+		{
+			"name": "Manual",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Signup random user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{$randomFirstName}}\",\r\n    \"password\": \"1\",\r\n    \"email\": \"{{$randomFirstName}}@domain.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signin sample user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"user\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signin admin",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/signin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"signin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh token",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"refreshToken\": \"449ef045-03aa-4f96-8656-0dd4c3405f95\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/refresh-token",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sample endpoints",
+					"item": [
+						{
+							"name": "Get public",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/public",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"public"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTc1MzE2NzksImV4cCI6MTcxNzUzMTczOSwic3ViIjoidXNlciIsInJvbGVzIjpbIlJPTEVfVVNFUiJdfQ.7qif38hcCenEsk66HSSR7IXtmunHPr_6OLYzz-GfKLR1Cfn328dfepa_qTlK8juQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTc1MzE2OTMsImV4cCI6MTcxNzUzMTc1Mywic3ViIjoiYWRtaW4iLCJyb2xlcyI6WyJST0xFX0FETUlOIl19.bUhvdnkp1B_aJKnqSlUnczfZofo3zT06ADImu-Xd5UksI1miPHgZFLQSmfx8iMk8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Public",
+					"item": [
+						{
+							"name": "Test unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Hello unauthorized user\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/public",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"public"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test authorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"    pm.response.to.have.header(\"Content-Type\", \"application/json\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Hello unauthorized user\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"signInUrl\"),\r",
+											"    method: 'POST',\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"            username: pm.collectionVariables.get(\"sampleUserUsername\"),\r",
+											"            password: pm.collectionVariables.get(\"sampleUserPassword\")\r",
+											"        }),\r",
+											"        options: {\r",
+											"            raw: {\r",
+											"                language: 'json'\r",
+											"            }\r",
+											"        }\r",
+											"    }\r",
+											"}, function (err, response) {\r",
+											"    if (err) { throw err; }\r",
+											"\r",
+											"    pm.environment.set('accessToken', response.json().accessToken);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/public",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"public"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Test user endpoint unauthorized user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains authorization error message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Authentication error: 'Full authentication is required to access this resource'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test user endpoint sample user authorized user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains 'user' welocame message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Hello, user 'user'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"signInUrl\"),\r",
+											"    method: 'POST',\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"            username: pm.collectionVariables.get(\"sampleUserUsername\"),\r",
+											"            password: pm.collectionVariables.get(\"sampleUserPassword\")\r",
+											"        }),\r",
+											"        options: {\r",
+											"            raw: {\r",
+											"                language: 'json'\r",
+											"            }\r",
+											"        }\r",
+											"    }\r",
+											"}, function (err, response) {\r",
+											"    if (err) { throw err; }\r",
+											"\r",
+											"    pm.environment.set('accessToken', response.json().accessToken);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test admin endpoint sample user authorized user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains 'user' welocame message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Authentication error: 'Full authentication is required to access this resource'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"signInUrl\"),\r",
+											"    method: 'POST',\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"            username: pm.collectionVariables.get(\"sampleUserUsername\"),\r",
+											"            password: pm.collectionVariables.get(\"sampleUserPassword\")\r",
+											"        }),\r",
+											"        options: {\r",
+											"            raw: {\r",
+											"                language: 'json'\r",
+											"            }\r",
+											"        }\r",
+											"    }\r",
+											"}, function (err, response) {\r",
+											"    if (err) { throw err; }\r",
+											"\r",
+											"    pm.environment.set('accessToken', response.json().accessToken);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Test admin entpoint unauthorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains authorization error message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Authentication error: 'Full authentication is required to access this resource'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test admin entpoint sample user authorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains authorization error message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Authentication error: 'Full authentication is required to access this resource'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"signInUrl\"),\r",
+											"    method: 'POST',\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"            username: pm.collectionVariables.get(\"sampleUserUsername\"),\r",
+											"            password: pm.collectionVariables.get(\"sampleUserPassword\")\r",
+											"        }),\r",
+											"        options: {\r",
+											"            raw: {\r",
+											"                language: 'json'\r",
+											"            }\r",
+											"        }\r",
+											"    }\r",
+											"}, function (err, response) {\r",
+											"    if (err) { throw err; }\r",
+											"\r",
+											"    pm.environment.set('accessToken', response.json().accessToken);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Test admin entpoint sample admin authorized",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is JSON\", function () {\r",
+											"     pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains admin welcome error message\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Hello, admin 'admin'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get(\"signInUrl\"),\r",
+											"    method: 'POST',\r",
+											"    body: {\r",
+											"        mode: 'raw',\r",
+											"        raw: JSON.stringify({\r",
+											"            username: pm.collectionVariables.get(\"sampleAdminUsername\"),\r",
+											"            password: pm.collectionVariables.get(\"sampleAdminPassword\")\r",
+											"        }),\r",
+											"        options: {\r",
+											"            raw: {\r",
+											"                language: 'json'\r",
+											"            }\r",
+											"        }\r",
+											"    }\r",
+											"}, function (err, response) {\r",
+											"    if (err) { throw err; }\r",
+											"\r",
+											"    pm.environment.set('accessToken', response.json().accessToken);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{accessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/admin",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"admin"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Refresh user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: pm.collectionVariables.get(\"signInUrl\"),\r",
+									"    method: 'POST',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            username: pm.collectionVariables.get(\"sampleUserUsername\"),\r",
+									"            password: pm.collectionVariables.get(\"sampleUserPassword\")\r",
+									"        }),\r",
+									"        options: {\r",
+									"            raw: {\r",
+									"                language: 'json'\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"}, function (err, response) {\r",
+									"    if (err) { throw err; }\r",
+									"\r",
+									"    pm.environment.set('accessToken', response.json().accessToken);\r",
+									"    pm.environment.set('refreshToken', response.json().refreshToken);\r",
+									"    console.log(pm.environment.get('refreshToken'));\r",
+									"    pm.test(\"Pause for 0.5 seconds\", function () {\r",
+									"        return new Promise(resolve => {\r",
+									"            setTimeout(resolve, 1000);\r",
+									"        });\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access token is refreshed\", function () {\r",
+									"    var newAccessToken = pm.response.json().accessToken;\r",
+									"    var oldAccessToken = pm.environment.get(\"accessToken\");\r",
+									"    pm.expect(newAccessToken).to.not.equal(oldAccessToken);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Refresh token is the same\", function () {\r",
+									"    var newRefreshToken = pm.response.json().refreshToken;\r",
+									"    var oldRefreshToken = pm.environment.get(\"refreshToken\");\r",
+									"    pm.expect(newRefreshToken).to.equal(oldRefreshToken);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/refresh-token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "signInUrl",
+			"value": "http://localhost:8080/api/v1/auth/signin",
+			"type": "string"
+		},
+		{
+			"key": "signUpUrl",
+			"value": "http://localhost:8080/api/v1/auth/signup",
+			"type": "string"
+		},
+		{
+			"key": "refreshTokenUrl",
+			"value": "http://localhost:8080/api/v1/auth/refresh-token",
+			"type": "string"
+		},
+		{
+			"key": "sampleUserUsername",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"key": "sampleUserPassword",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"key": "sampleAdminUsername",
+			"value": "admin",
+			"type": "string"
+		},
+		{
+			"key": "sampleAdminPassword",
+			"value": "admin",
+			"type": "string"
+		}
+	]
+}
