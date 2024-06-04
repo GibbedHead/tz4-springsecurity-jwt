@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data
-@Schema(description = "Authorization request")
+@Schema(description = "SignIn request")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SignInRequest {
     @Schema(description = "Username", example = "user_1")

@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Schema(description = "Registration request")
+@Schema(description = "SignUp request")
 public class SignUpRequest {
     @Schema(description = "Username", example = "user_1")
     @Size(min = 1, max = 50)
