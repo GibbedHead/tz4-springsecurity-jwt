@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtService {
     private static final String ROLES_CLAIM = "roles";
-    private static final String ID_CLAIM = "id";
 
     private final RefreshTokenService refreshTokenService;
 
@@ -32,9 +31,8 @@ public class JwtService {
     @Value("${jwt.refreshTokenExpiration}")
     private Duration refreshTokenExpiration;
 
-    public String generateAccessToken(String username, Long id, Set<Role> roles) {
+    public String generateAccessToken(String username, Set<Role> roles) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(ID_CLAIM, id);
         claims.put(
                 ROLES_CLAIM,
                 roles.stream()
