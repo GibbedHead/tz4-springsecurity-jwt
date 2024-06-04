@@ -28,6 +28,8 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SignInRequest signInRequest) {
-        return null;
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(authService.signIn(signInRequest));
     }
 }
