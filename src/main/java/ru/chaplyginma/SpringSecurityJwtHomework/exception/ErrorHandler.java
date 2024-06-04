@@ -48,11 +48,31 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RefreshTokenExpiredException.class)
     public ResponseEntity<Object> handleRefreshTokenExpiredException(RefreshTokenExpiredException ex) {
         AppErrorResponse appErrorResponse = new AppErrorResponse(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.UNAUTHORIZED.value(),
                 "Refresh token error: '%s'".formatted(ex.getMessage())
         );
 
-        return new ResponseEntity<>(appErrorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(appErrorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessTokenExpiredException.class)
+    public ResponseEntity<Object> handleAccessTokenExpiredException(AccessTokenExpiredException ex) {
+        AppErrorResponse appErrorResponse = new AppErrorResponse(
+                HttpStatus.UNAUTHORIZED.value(),
+                "Access token error: '%s'".formatted(ex.getMessage())
+        );
+
+        return new ResponseEntity<>(appErrorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessTokenSignatureException.class)
+    public ResponseEntity<Object> handleAccessTokenSignatureException(AccessTokenSignatureException ex) {
+        AppErrorResponse appErrorResponse = new AppErrorResponse(
+                HttpStatus.FORBIDDEN.value(),
+                "Access token sign error: '%s'".formatted(ex.getMessage())
+        );
+
+        return new ResponseEntity<>(appErrorResponse, HttpStatus.FORBIDDEN);
     }
 
     @Override

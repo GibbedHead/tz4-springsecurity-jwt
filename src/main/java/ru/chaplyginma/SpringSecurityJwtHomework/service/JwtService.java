@@ -1,6 +1,7 @@
 package ru.chaplyginma.SpringSecurityJwtHomework.service;
 
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +12,8 @@ import ru.chaplyginma.SpringSecurityJwtHomework.model.RefreshToken;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.Role;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.User;
 
+import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.security.Key;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -75,7 +76,19 @@ public class JwtService {
         }
     }
 
-    private Key getSigningKey() {
+    public String extractUserName(String token) {
+        return getAllClaimsFromToken(token).getSubject();
+    }
+
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    private SecretKey getSigningKey() {
         byte[] keyBytes = this.jwtSecret.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
