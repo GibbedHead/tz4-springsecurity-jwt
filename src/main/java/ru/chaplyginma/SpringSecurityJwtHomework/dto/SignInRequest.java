@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SignInRequest {
     @Schema(description = "Username", example = "user_1")
-    @Size(min = 5, max = 50)
+    @Size(min = 1, max = 50)
     @NotBlank
     String username;
 

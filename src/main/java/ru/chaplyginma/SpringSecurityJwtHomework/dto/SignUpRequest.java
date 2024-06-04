@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @Schema(description = "Registration request")
 public class SignUpRequest {
     @Schema(description = "Username", example = "user_1")
-    @Size(min = 5, max = 50)
+    @Size(min = 1, max = 50)
     @NotBlank
     String username;
 
