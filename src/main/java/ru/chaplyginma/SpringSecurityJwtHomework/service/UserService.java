@@ -35,8 +35,8 @@ public class UserService implements UserDetailsService {
 
     public User createUser(SignUpRequest signUpRequest) {
         User newUser = userMapper.signUpRequestToUser(signUpRequest);
-        if (userRepository.existsByUserName(newUser.getUserName())) {
-            throw new InvalidUserException("Username '%s' already exists".formatted(newUser.getUserName()));
+        if (userRepository.existsByUsername(newUser.getUsername())) {
+            throw new InvalidUserException("Username '%s' already exists".formatted(newUser.getUsername()));
         }
         if (userRepository.existsByEmail(newUser.getEmail())) {
             throw new InvalidUserException("Email '%s' already exists".formatted(newUser.getEmail()));
@@ -46,14 +46,14 @@ public class UserService implements UserDetailsService {
         return saveUser(newUser);
     }
 
-    public Optional<User> findByUserName(String userName) {
-        return userRepository.findByUserName(userName);
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUserName(username).orElseThrow(
+        User user = findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User '%s' not found".formatted(username))
         );
         return mapUserToUserDetails(user);
@@ -61,7 +61,7 @@ public class UserService implements UserDetailsService {
 
     private UserDetails mapUserToUserDetails(User user) {
         return new org.springframework.security.core.userdetails.User(
-                user.getUserName(),
+                user.getUsername(),
                 user.getPassword(),
                 user.getRoles().stream()
                         .map(role -> new SimpleGrantedAuthority(role.getName()))

@@ -32,7 +32,7 @@ public class JwtService {
     @Value("${jwt.refreshTokenExpiration}")
     private Duration refreshTokenExpiration;
 
-    public String generateAccessToken(String userName, Long id, Set<Role> roles) {
+    public String generateAccessToken(String username, Long id, Set<Role> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(ID_CLAIM, id);
         claims.put(
@@ -46,7 +46,7 @@ public class JwtService {
         return Jwts.builder()
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + accessTokenExpiration.toMillis()))
-                .subject(userName)
+                .subject(username)
                 .claims(claims)
                 .signWith(getSigningKey())
                 .compact();
