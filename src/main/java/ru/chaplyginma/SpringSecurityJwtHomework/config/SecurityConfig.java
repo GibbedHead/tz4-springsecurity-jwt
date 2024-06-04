@@ -33,7 +33,8 @@ public class SecurityConfig {
             "/auth/**",
             "/swagger-ui/**",
             "/swagger-resources/*",
-            "/v3/api-docs/**"
+            "/v3/api-docs/**",
+            "/v3/api-docs.yaml"
     );
 
     private final UserService userService;

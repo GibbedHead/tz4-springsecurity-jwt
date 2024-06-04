@@ -1,0 +1,298 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080/api/v1
+  description: Generated server url
+tags:
+- name: User controller
+  description: Endpoint testing access of authenticated user
+- name: Authentication controller
+  description: Endpoints for creating/logging users and refreshing access tokens
+- name: Admin controller
+  description: Endpoint testing access of authenticated user with ADMIN role
+- name: Public controller
+  description: Endpoint testing unauthorized access
+paths:
+  /auth/signup:
+    post:
+      tags:
+      - Authentication controller
+      summary: SignUp
+      description: Signup new user
+      operationId: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpRequest"
+        required: true
+      responses:
+        "200":
+          description: "Object, containing access and refresh tokens"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtAuthenticationResponse"
+              example:
+                accessToken: eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTc1Mjc1NTUsImV4cCI6MTcxNzUyODE1NSwic3ViIjoiTWFsdmluYSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdfQ.utQS9pSI-CBEx-s8P2O1YsVwe7ofjQLX-YAj8b3yZ9Y-817TXbzlnuUwdOqahKHX
+                refreshToken: 2bba917b-cc81-4058-b7a3-0fa5e4cf7e97
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 400
+                message: Validation Error
+                timestamp: 2024-06-04T22:40:46.7924577
+  /auth/signin:
+    post:
+      tags:
+      - Authentication controller
+      summary: SignIn
+      description: Signin existed user
+      operationId: signIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInRequest"
+        required: true
+      responses:
+        "200":
+          description: "Object, containing access and refresh tokens"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtAuthenticationResponse"
+              example:
+                accessToken: eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTc1Mjc1NTUsImV4cCI6MTcxNzUyODE1NSwic3ViIjoiTWFsdmluYSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdfQ.utQS9pSI-CBEx-s8P2O1YsVwe7ofjQLX-YAj8b3yZ9Y-817TXbzlnuUwdOqahKHX
+                refreshToken: 2bba917b-cc81-4058-b7a3-0fa5e4cf7e97
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 400
+                message: Validation Error
+                timestamp: 2024-06-04T22:40:46.7924577
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 401
+                message: "Authentication error: 'Bad credentials'"
+                timestamp: 2024-06-04T22:40:46.7924577
+  /auth/refresh-token:
+    post:
+      tags:
+      - Authentication controller
+      summary: Refresh access token
+      description: Getting new access token by providing valid refresh token
+      operationId: refresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenRefreshRequest"
+        required: true
+      responses:
+        "200":
+          description: "Object, containing access and refresh tokens"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JwtAuthenticationResponse"
+              example:
+                accessToken: eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MTc1Mjc1NTUsImV4cCI6MTcxNzUyODE1NSwic3ViIjoiTWFsdmluYSIsInJvbGVzIjpbIlJPTEVfVVNFUiJdfQ.utQS9pSI-CBEx-s8P2O1YsVwe7ofjQLX-YAj8b3yZ9Y-817TXbzlnuUwdOqahKHX
+                refreshToken: 2bba917b-cc81-4058-b7a3-0fa5e4cf7e97
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 400
+                message: Validation Error
+                timestamp: 2024-06-04T22:40:46.7924577
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 401
+                message: "Refresh token error: 'Refresh token expired'"
+                timestamp: 2024-06-04T22:40:46.7924577
+  /user:
+    get:
+      tags:
+      - User controller
+      summary: Get user welcome message
+      description: Returns welcome message using current user name
+      operationId: getUser
+      responses:
+        "200":
+          description: User welcome message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppResponse"
+              example:
+                message: "Hello, user 'user'"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 401
+                message: Access token expired
+                timestamp: 2024-06-04T22:40:46.7924577
+  /public:
+    get:
+      tags:
+      - Public controller
+      summary: Get public welcome message
+      description: Returns sample welcome message
+      operationId: getPublic
+      responses:
+        "200":
+          description: Public welcome message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppResponse"
+              example:
+                message: Hello unauthorized user
+  /admin:
+    get:
+      tags:
+      - Admin controller
+      summary: Get admin welcome message
+      description: Returns welcome message using current admin user name
+      operationId: getAdmin
+      responses:
+        "200":
+          description: Admin welcome message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppResponse"
+              example:
+                message: "Hello, admin 'admin'"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppErrorResponse"
+              example:
+                status: 401
+                message: Access token expired
+                timestamp: 2024-06-04T22:40:46.7924577
+components:
+  schemas:
+    JwtAuthenticationResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          description: Access token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.Sf...
+        refreshToken:
+          type: string
+          description: Refresh token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+      description: Authentication response with Access and Refresh tokens
+    AppErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: HTTP Status
+          format: int32
+          example: 401
+        message:
+          type: string
+          description: Message
+          example: Access token expired
+        timestamp:
+          type: string
+          description: Timestamp
+          format: date-time
+      description: App error response
+    SignUpRequest:
+      required:
+      - email
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Username
+          example: user_1
+        password:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: Password
+          example: mY_password
+        email:
+          maxLength: 255
+          minLength: 5
+          type: string
+          description: User email
+          example: user_1@domain.com
+      description: SignUp request
+    SignInRequest:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 1
+          type: string
+          description: Username
+          example: user_1
+        password:
+          maxLength: 255
+          minLength: 1
+          type: string
+          description: Password
+          example: mY_password
+      description: SignIn request
+    TokenRefreshRequest:
+      required:
+      - refreshToken
+      type: object
+      properties:
+        refreshToken:
+          type: string
+          description: Refresh token
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+      description: Refresh tokens request
+    AppResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message
+          example: "Hello, user 'user'"
+      description: Basic response object with message
