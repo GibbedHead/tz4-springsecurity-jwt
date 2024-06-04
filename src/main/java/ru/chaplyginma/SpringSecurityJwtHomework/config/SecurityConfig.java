@@ -17,6 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import ru.chaplyginma.SpringSecurityJwtHomework.secutity.JwtAuthenticationEntryPoint;
 import ru.chaplyginma.SpringSecurityJwtHomework.service.UserService;
 
+import java.util.List;
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
@@ -24,6 +26,14 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private static final List<String> WHITELIST = List.of(
+            "/public",
+            "/auth/**",
+            "/swagger-ui/**",
+            "/swagger-resources/*",
+            "/v3/api-docs/**"
+    );
+
     private final UserService userService;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -49,14 +59,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityWebFilterChain(HttpSecurity httpSecurity) throws Exception {
+        String[] whiteListedEndpoints = WHITELIST.toArray(String[]::new);
 
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .exceptionHandling((exception) -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/**").authenticated());
+                        .requestMatchers(whiteListedEndpoints).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .exceptionHandling((exception) -> exception.authenticationEntryPoint(jwtAuthenticationEntryPoint));
 
         return httpSecurity.build();
 
