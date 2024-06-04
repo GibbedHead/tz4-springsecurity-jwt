@@ -23,4 +23,8 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(refreshToken);
     }
 
+    public void delete(RefreshToken refreshToken) {
+        refreshTokenRepository.delete(refreshToken);
+    }
+
 }

@@ -6,9 +6,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.chaplyginma.SpringSecurityJwtHomework.dto.JwtAuthenticationResponse;
 import ru.chaplyginma.SpringSecurityJwtHomework.dto.SignInRequest;
 import ru.chaplyginma.SpringSecurityJwtHomework.dto.SignUpRequest;
+import ru.chaplyginma.SpringSecurityJwtHomework.dto.TokenRefreshRequest;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.RefreshToken;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.User;
 
@@ -20,6 +22,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
+    @Transactional
     public JwtAuthenticationResponse signUp(SignUpRequest signUpRequest) {
         signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         User user = userService.createUser(signUpRequest);
@@ -32,6 +35,7 @@ public class AuthService {
                 .build();
     }
 
+    @Transactional
     public JwtAuthenticationResponse signIn(SignInRequest signInRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 signInRequest.getUsername(),
@@ -46,6 +50,26 @@ public class AuthService {
                 user.getRoles()
         );
         RefreshToken refreshToken = jwtService.getNewRefreshToken(user);
+
+        return JwtAuthenticationResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken.getValue())
+                .build();
+    }
+
+    @Transactional
+    public JwtAuthenticationResponse refreshToken(TokenRefreshRequest tokenRefreshRequest) {
+        RefreshToken refreshToken = jwtService.getRefreshTokenByValue(tokenRefreshRequest.getRefreshToken());
+        jwtService.validateRefreshToken(refreshToken);
+
+        User user = userService.findByUsername(refreshToken.getUser().getUsername()).orElseThrow(
+                () -> new UsernameNotFoundException("User '%s' not found".formatted(refreshToken.getUser().getUsername()))
+        );
+
+        String accessToken = jwtService.generateAccessToken(
+                user.getUsername(),
+                user.getRoles()
+        );
 
         return JwtAuthenticationResponse.builder()
                 .accessToken(accessToken)

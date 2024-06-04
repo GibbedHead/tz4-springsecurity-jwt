@@ -6,6 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import ru.chaplyginma.SpringSecurityJwtHomework.exception.model.RefreshTokenExpiredException;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.RefreshToken;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.Role;
 import ru.chaplyginma.SpringSecurityJwtHomework.model.User;
@@ -61,6 +62,17 @@ public class JwtService {
                 .value(UUID.randomUUID().toString())
                 .expireAt(LocalDateTime.now().plus(refreshTokenExpiration))
                 .build();
+    }
+
+    public RefreshToken getRefreshTokenByValue(String value) {
+        return refreshTokenService.findByValue(value);
+    }
+
+    public void validateRefreshToken(RefreshToken refreshToken) {
+        if (refreshToken.getExpireAt().isBefore(LocalDateTime.now())) {
+            refreshTokenService.delete(refreshToken);
+            throw new RefreshTokenExpiredException("Refresh token expired");
+        }
     }
 
     private Key getSigningKey() {

@@ -25,7 +25,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     ) throws IOException {
         AppErrorResponse appErrorResponse = new AppErrorResponse(
                 HttpStatus.UNAUTHORIZED.value(),
-                "Invalid access token. Exception: '%s'".formatted(authException.getMessage())
+                "Authentication error: '%s'".formatted(authException.getMessage())
         );
         String jsonResponse = objectMapper.writeValueAsString(appErrorResponse);
 
@@ -33,6 +33,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
-        response.flushBuffer();
+        response.getWriter().flush();
     }
 }
