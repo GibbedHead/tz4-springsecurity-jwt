@@ -5,12 +5,14 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Schema(description = "SignUp request")
+@AllArgsConstructor
 public class SignUpRequest {
     @Schema(description = "Username", example = "user_1")
     @Size(min = 1, max = 50)
