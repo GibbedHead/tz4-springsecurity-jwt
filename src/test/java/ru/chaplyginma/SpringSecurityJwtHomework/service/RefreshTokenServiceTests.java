@@ -29,19 +29,19 @@ public class RefreshTokenServiceTests {
 
     @Test
     public void findByValue_whenTokenExists_thenReturnRefreshToken() {
-        given(refreshTokenRepository.findByValue(anyString()))
+        given(refreshTokenRepository.findByTokenValue(anyString()))
                 .willReturn(Optional.of(RefreshTokenTestData.getRefreshToken()));
 
         RefreshToken foundRefreshToken = refreshTokenService.findByValue("value");
 
         assertThat(foundRefreshToken).isNotNull();
 
-        assertThat(foundRefreshToken.getValue()).isEqualTo(RefreshTokenTestData.getRefreshToken().getValue());
+        assertThat(foundRefreshToken.getTokenValue()).isEqualTo(RefreshTokenTestData.getRefreshToken().getTokenValue());
     }
 
     @Test
     public void findByValue_whenTokenNotExists_thenThrowException() {
-        given(refreshTokenRepository.findByValue(anyString()))
+        given(refreshTokenRepository.findByTokenValue(anyString()))
                 .willReturn(Optional.empty());
 
         assertThatThrownBy(() -> refreshTokenService.findByValue("value"))
@@ -58,7 +58,7 @@ public class RefreshTokenServiceTests {
 
         RefreshToken savedRefreshToken = refreshTokenService.save(expectedToken);
 
-        assertThat(savedRefreshToken.getValue()).isEqualTo(expectedToken.getValue());
+        assertThat(savedRefreshToken.getTokenValue()).isEqualTo(expectedToken.getTokenValue());
         verify(refreshTokenRepository, times(1)).save(expectedToken);
     }
 

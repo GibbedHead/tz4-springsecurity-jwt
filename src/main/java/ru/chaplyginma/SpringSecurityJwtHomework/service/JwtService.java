@@ -60,7 +60,7 @@ public class JwtService {
     public RefreshToken generateRefreshToken(User user) {
         return RefreshToken.builder()
                 .user(user)
-                .value(UUID.randomUUID().toString())
+                .tokenValue(UUID.randomUUID().toString())
                 .expireAt(LocalDateTime.now().plus(refreshTokenExpiration))
                 .build();
     }

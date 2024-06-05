@@ -14,7 +14,7 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     public RefreshToken findByValue(String value) {
-        return refreshTokenRepository.findByValue(value).orElseThrow(
+        return refreshTokenRepository.findByTokenValue(value).orElseThrow(
                 () -> new RefreshTokenNotFoundException("Refresh token '%s' not found".formatted(value))
         );
     }

@@ -31,7 +31,7 @@ public class AuthService {
 
         return JwtAuthenticationResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(refreshToken.getValue())
+                .refreshToken(refreshToken.getTokenValue())
                 .build();
     }
 
@@ -53,7 +53,7 @@ public class AuthService {
 
         return JwtAuthenticationResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(refreshToken.getValue())
+                .refreshToken(refreshToken.getTokenValue())
                 .build();
     }
 
@@ -73,7 +73,7 @@ public class AuthService {
 
         return JwtAuthenticationResponse.builder()
                 .accessToken(accessToken)
-                .refreshToken(refreshToken.getValue())
+                .refreshToken(refreshToken.getTokenValue())
                 .build();
     }
 }

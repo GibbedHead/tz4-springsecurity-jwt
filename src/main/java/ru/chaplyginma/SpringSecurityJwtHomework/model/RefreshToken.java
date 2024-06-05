@@ -22,8 +22,8 @@ public class RefreshToken {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     User user;
-    @Column(name = "value", unique = true, nullable = false)
-    String value;
+    @Column(name = "token_value", unique = true, nullable = false)
+    String tokenValue;
     @Column(name = "expire_at", nullable = false)
     LocalDateTime expireAt;
 }
