@@ -26,9 +26,6 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceTests {
-    @InjectMocks
-    private AuthService authService;
-
     @Mock
     UserService userService;
     @Mock
@@ -37,6 +34,8 @@ public class AuthServiceTests {
     PasswordEncoder passwordEncoder;
     @Mock
     AuthenticationManager authenticationManager;
+    @InjectMocks
+    private AuthService authService;
 
     @Test
     public void signUp_shouldReturnJwtAuthenticationResponse() {
